@@ -12,7 +12,7 @@ through executing commands and issuing queries. It has internal state and a sess
 I have started to use a dependency injection library, but it was not done 100% throughout the codebase, so the effect is weakened by this.
 
 Other concepts / conventions:
-  - every command / query has a form object to validate the incomming params
+  - every command / query has a form object to validate the incoming params
   - commands use pub/sub functions of `wisper`, this allows to shape custom protocol to communicate the result
   to the interested actors in a more decoupled way
   - queries are more direct and return the result directly or raise on invalid queries
