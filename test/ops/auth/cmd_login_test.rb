@@ -13,13 +13,9 @@ describe Ops::Auth::CmdLogin do
     assert_broadcast(:not_found) { cmd.call }
   end
 
-  describe 'works with valid user' do
-    before do
-      Ops::Auth::CmdSignup.call(email: 'a@a.be', password: 'somepass', password_confirmation: 'somepass')
-    end
-    it {
-      cmd = described_class.new(email: 'a@a.be', password: 'somepass')
-      assert_broadcast(:ok) { cmd.call }
-    }
+  it 'works with valid user' do
+    Ops::Auth::CmdSignup.call(email: 'a@a.be', password: 'somepass', password_confirmation: 'somepass')
+    cmd = described_class.new(email: 'a@a.be', password: 'somepass')
+    assert_broadcast(:ok) { cmd.call }
   end
 end
