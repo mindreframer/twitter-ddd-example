@@ -6,6 +6,24 @@ Pjax Alternatives:
   http://roca-style.org/libraries.html
 
 
+Clean Architecture
+  - [Better Software Design with Clean Architecture (fullstackmark.com)](https://news.ycombinator.com/item?id=14686726)
+
+  daigoba66 7 hours ago [-]
+    I've come to the exact same conclusion after spending time with these same types of systems.
+    Practically speaking, I find that abstracting a system into a set of commands and a set of queries (i.e. CQRS) is often the "right" solution. Each command/query encapsulates an individual use-case, and all of the business rules and database access required.
+
+
+
+  dayjah 5 hours ago [-]
+    I had been quite skeptical of Clean Architecture when I first came across it. I don't find Uncle Bob's post on it particularly insightful; for me it's not vocational enough.
+    Then a few years ago I had to maintain a software stack written by contractors from Pivotal (https://pivotal.io/) in a Clean Architecture style - it was truly a revelation for me; akin to that "aha" moment of fully grokking homoiconicity in LISPs.
+    Now, up until this point, all code I'd encountered at Twitch heavily reflected the domain of the problem it was solving and the technology in which it was written. That is, if you were looking at a certain piece of architecture you had to really fully understand not only exactly the intent of that code base but also the details of the framework in which it was written. As codebases increased in number and size, it became much harder to scale as an engineer. Jumping from a Rails monolith, to a highly concurrent Golang HTTP CRUD-API, to a highly asynchronous Twisted-Python request routing system (broadly the main three backend techs) had a very large cognitive load. The eng org cleaved along these lines and maintaining velocity in that world was very hard; attempts to introduce new tech or join chunks of the org took on a "religious" tone.
+    So initially coming across this clean architecture stack felt very similar to that. It had a lot of "weird new things" in it, but once I understood that much of it was routing (tagging inbound requests in a manner that a deeper layer could understand the intent of the request and pass it to the correct interactor, which would then work on the appropriate entities) it suddenly became incredibly easy to hop around the code base and update the important aspects of it.
+    I asked the authors who had been contracted to build this system where they got their inspiration and they cited many lunchtime discussions and pair programming sessions influenced heavily by Uncle Bob's clean architecture.
+    I would have really enjoyed seeing more systems built like this because, to the maintenance programmer, it was very clear where things had to go. However only encountering one Clean Architected system didn't really give me a solid idea of how well it would scale across various domains.
+
+
 Business Logic:
   http://onfido.ghost.io/commands-and-use-cases/
   https://www.jasonroelofs.com/2013/02/11/raidit-final-thoughts
