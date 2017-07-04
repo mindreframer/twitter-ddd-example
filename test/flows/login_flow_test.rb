@@ -18,6 +18,13 @@ describe "Login flows" do
     assert_equal system.current_user.email, 'user2@example.com'
   end
 
+  it 'signup with the same emails fails' do
+    system.cmd('cmd.auth.signup', email: 'user3@example.com', password: 'password123', password_confirmation: 'password123')
+    system.expect_failure(:failure_email_taken) do
+      system.cmd('cmd.auth.signup', email: 'user3@example.com', password: 'password123', password_confirmation: 'password123')
+    end
+  end
+
   it 'login with wrong password fails' do
     system.expect_failure(:wrong_password) do
       system.cmd('cmd.auth.login', email: 'user2@example.com', password: 'invalidpassword')

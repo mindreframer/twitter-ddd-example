@@ -17,7 +17,11 @@ module Ops
 
       def call
         return broadcast(:invalid, form.errors) unless form.valid?
-        u = create_user
+        begin
+          u = create_user
+        rescue Sequel::UniqueConstraintViolation
+          return broadcast(:failure_email_taken, form.email)
+        end
         broadcast(:ok, u)
       end
 
